@@ -9,3 +9,4 @@ The service will be available as an already deployed solution that is ready for 
 ## Authors
 
 * **Nikolay Hryshchenkov** - *Architecture and Leading* - [Krapiy](https://github.com/Krapiy)
+* **Alex Pikuta** - *Frontend Developer* - [alexpikuta](https://github.com/alexpikuta)
