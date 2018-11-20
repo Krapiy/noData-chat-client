@@ -20,10 +20,9 @@
                 prepend-icon="lock"
                 name="password"
                 label="Password"
-                id="password"
                 type="password"
                 v-model="password"
-                :rules="pssswordRules"
+                :rules="passwordRules"
               ></v-text-field>
             </v-form>
           </v-card-text>
@@ -31,7 +30,7 @@
             <v-spacer></v-spacer>
             <v-btn
               color="primary"
-              @click="onLogin"
+              @click="onSubmit"
               :disabled="!valid"
             >Login</v-btn>
           </v-card-actions>
@@ -51,13 +50,13 @@ export default {
       loginRules: [
         v => !!v || 'Login is required'
       ],
-      pssswordRules: [
+      passwordRules: [
         v => !!v || 'Password is required'
       ]
     }
   },
   methods: {
-    onLogin () {
+    onSubmit () {
       if (this.$refs.form.validate()) {
         const user = {
           login: this.login,
