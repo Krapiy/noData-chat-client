@@ -8,13 +8,7 @@
   </div>
 </template>
 <script>
-export default {
-  data () {
-    return {
-      message: 'Our new chat is awesome!'
-    }
-  }
-}
+export default { }
 </script>
 <style lang="sass">
   @import "./styles/styles.sass"
