@@ -24,6 +24,19 @@
                 v-model="password"
                 :rules="passwordRules"
               ></v-text-field>
+              <v-checkbox
+                :label="'Use safe store'"
+                v-model="safeStoreChb"
+              ></v-checkbox>
+              <v-text-field
+                v-if="safeStoreChb"
+                prepend-icon="vpn_key"
+                name="privateKey"
+                label="Private Key"
+                type="text"
+                v-model="privateKey"
+                :rules="privateKeyRules"
+              ></v-text-field>
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -34,6 +47,9 @@
               :disabled="!valid"
             >Login</v-btn>
           </v-card-actions>
+          <v-card-text class="text-xs-center">
+            <router-link :to="'/registration'" class="caption">Have no account? Create one!</router-link>
+          </v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
@@ -46,12 +62,17 @@ export default {
     return {
       login: '',
       password: '',
+      safeStoreChb: true,
+      privateKey: '',
       valid: false,
       loginRules: [
         v => !!v || 'Login is required'
       ],
       passwordRules: [
         v => !!v || 'Password is required'
+      ],
+      privateKeyRules: [
+        v => !!v || 'This field is required'
       ]
     }
   },
@@ -60,7 +81,8 @@ export default {
       if (this.$refs.form.validate()) {
         const user = {
           login: this.login,
-          password: this.password
+          password: this.password,
+          privateKey: this.privateKey
         }
         console.log(user)
       }

@@ -43,6 +43,9 @@
               :disabled="!valid"
             >Sign Up</v-btn>
           </v-card-actions>
+          <v-card-text class="text-xs-center">
+            <router-link :to="'/login'" class="caption">Already have account?</router-link>
+          </v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
@@ -66,6 +69,7 @@ export default {
         v => !passwordRegex.test(v) || 'Password shouldn\'t contain whitespace characters'
       ],
       confirmPassswordRules: [
+        v => !!v || 'Passwords should match',
         v => v === this.password || 'Passwords should match'
       ]
     }
@@ -75,9 +79,11 @@ export default {
       if (this.$refs.form.validate()) {
         const user = {
           login: this.login,
-          password: this.password
+          password: this.password,
+          safeStore: true,
+          privateKey: ''
         }
-        console.log(user)
+        this.$store.dispatch('registerUser', user)
       }
     }
   }
