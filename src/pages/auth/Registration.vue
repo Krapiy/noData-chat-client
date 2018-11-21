@@ -83,7 +83,7 @@ export default {
           safeStore: true,
           privateKey: ''
         }
-        console.log(user)
+        this.$store.dispatch('registerUser', user)
       }
     }
   }
