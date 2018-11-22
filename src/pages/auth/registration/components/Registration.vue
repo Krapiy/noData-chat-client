@@ -53,20 +53,19 @@
 </template>
 
 <script>
-const passwordRegex = /\s/
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+
 export default {
   data () {
     return {
-      login: '',
-      password: '',
-      confirmPassword: '',
+      passwordRegex: /\s/,
       valid: false,
       loginRules: [
         v => !!v || 'Login is required'
       ],
       passwordRules: [
         v => !!v || 'Password is required',
-        v => !passwordRegex.test(v) || 'Password shouldn\'t contain whitespace characters'
+        v => !this.passwordRegex.test(v) || 'Password shouldn\'t contain whitespace characters'
       ],
       confirmPassswordRules: [
         v => !!v || 'Passwords should match',
@@ -74,16 +73,66 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters({
+      getLogin: 'registration/getLogin',
+      getPassword: 'registration/getPassword',
+      getConfirmPassword: 'registration/getConfirmPassword'
+    }),
+    login: {
+      get () {
+        return this.getLogin
+      },
+      set (login) {
+        this.setLogin(login)
+      }
+    },
+    password: {
+      get () {
+        return this.getPassword
+      },
+      set (password) {
+        this.setPassword(password)
+      }
+    },
+    confirmPassword: {
+      get () {
+        return this.getConfirmPassword
+      },
+      set (password) {
+        this.setConfirmPassword(password)
+      }
+    }
+  },
   methods: {
+    ...mapActions({
+      registerUser: 'user/registerUser',
+      generateMnemonic: 'registration/generateMnemonic',
+      generateSeed: 'registration/generateSeed',
+      generateRootKey: 'registration/generateRootKey',
+      generateExtendedKey: 'registration/generateExtendedKey',
+      generatePrivateKey: 'registration/generatePrivateKey',
+      generateAddress: 'registration/generateAddress'
+    }),
+    ...mapMutations({
+      setLogin: 'registration/SET_LOGIN',
+      setPassword: 'registration/SET_PASSWORD',
+      setConfirmPassword: 'registration/SET_CONFIRM_PASSWORD'
+    }),
     onSubmit () {
       if (this.$refs.form.validate()) {
-        const user = {
-          login: this.login,
-          password: this.password,
-          safeStore: true,
-          privateKey: ''
-        }
-        this.$store.dispatch('registerUser', user)
+        // const user = {
+        //   login: this.login,
+        //   password: this.password,
+        //   safeStore: true,
+        //   privateKey: ''
+        // }
+        this.generateMnemonic()
+        this.generateSeed()
+        this.generateRootKey()
+        this.generateExtendedKey()
+        this.generatePrivateKey()
+        this.generateAddress()
       }
     }
   }
