@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/pages/Home'
-import Login from '@/pages/auth/Login'
-import Registration from '@/pages/auth/Registration'
+import Login from '@/pages/auth/login//components/Login'
+import Registration from '@/pages/auth/registration/components/Registration'
 
 Vue.use(Router)
 
