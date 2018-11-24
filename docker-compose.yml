@@ -1,0 +1,12 @@
+version: '3'
+services:
+  no-data-chat-client:
+    container_name: no-data-chat-client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm run dev
+    volumes:
+      - .:/noData-chat-client
+    ports:
+      - '8082:8080'
