@@ -10,6 +10,7 @@
       round
       icon
       class="btn_activator"
+      @click="setFocus"
     >
       <v-icon>person_add</v-icon>
     </v-btn>
@@ -27,7 +28,8 @@
           <v-text-field
             v-model="newUsername"
             label="Username"
-            autofocus
+            ref="newUsernameInput"
+            @keyup.esc="closeModal"
             required
           ></v-text-field>
         </v-card-text>
@@ -56,8 +58,15 @@
       }
     },
     methods: {
+      setFocus () {
+        this.$nextTick(() => this.$refs.newUsernameInput.focus())
+      },
       onSubmit () {
         this.dialog = false
+      },
+      closeModal () {
+        this.dialog = false
+        this.newUsername = ''
       }
     }
   }

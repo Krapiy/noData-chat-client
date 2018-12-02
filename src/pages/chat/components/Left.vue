@@ -5,7 +5,10 @@
         <add-user-modal></add-user-modal>
         <v-text-field
           v-model="search"
+          @keyup.esc="clearInput"
+          ref="searchInput"
           label="Search"
+          class="search-input"
           mt-0
           pt-0
           xs4
@@ -13,24 +16,24 @@
         <new-group-modal></new-group-modal>
       </v-layout>
     </v-flex>
-    <v-flex>
+    <v-flex class="scroll dialogs-list">
       <v-list two-line>
-        <div v-for="(item, index) in items" :key="item.index">
+        <div v-for="(item, index) in filteredList" :key="index">
 
           <v-divider></v-divider>
 
           <v-list-tile
-            :key="item.title"
+            :key="item.name"
             avatar
             @click=""
           >
-            <v-list-tile-avatar>
-              J
+            <v-list-tile-avatar :style="{ background: getColor(item.name) }">
+              {{ getShortedName(item.name) }}
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title v-html="item.title"></v-list-tile-title>
-              <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
+              <v-list-tile-title v-html="item.name"></v-list-tile-title>
+              <v-list-tile-sub-title v-html="item.message"></v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
         </div>
@@ -42,8 +45,10 @@
 <script>
   import AddUserModal from '@/pages/chat/modals/AddUserModal'
   import NewGroupModal from '@/pages/chat/modals/NewGroupModal'
+  import avatar from '@/mixins/avatar'
 
   export default {
+    mixins: [avatar],
     components: {
       AddUserModal,
       NewGroupModal
@@ -53,45 +58,68 @@
         search: '',
         items: [
           {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-            title: 'Brunch this weekend?',
-            subtitle: "<span class='text--primary'>Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
+            name: 'Nikolay',
+            message: "I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
           },
           {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-            title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
-            subtitle: "<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend."
+            name: 'Ilya',
+            message: "Wish I could come, but I'm out of town this weekend."
           },
           {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-            title: 'Oui oui',
-            subtitle: "<span class='text--primary'>Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?"
+            name: 'Roman',
+            message: 'Do you have Paris recommendations? Have you ever been?'
           },
           {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-            title: 'Birthday gift',
-            subtitle: "<span class='text--primary'>Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?"
+            name: 'Alex',
+            message: 'Have any ideas about what we should get Heidi for her birthday?'
           },
           {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-            title: 'Recipe to try',
-            subtitle: "<span class='text--primary'>Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos."
+            name: 'Nikolay',
+            message: "I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
+          },
+          {
+            name: 'Ilya',
+            message: "Wish I could come, but I'm out of town this weekend."
+          },
+          {
+            name: 'Roman',
+            message: 'Do you have Paris recommendations? Have you ever been?'
+          },
+          {
+            name: 'Alex',
+            message: 'Have any ideas about what we should get Heidi for her birthday?'
+          },
+          {
+            name: 'Nikolay',
+            message: "I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
+          },
+          {
+            name: 'Ilya',
+            message: "Wish I could come, but I'm out of town this weekend."
+          },
+          {
+            name: 'Roman',
+            message: 'Do you have Paris recommendations? Have you ever been?'
+          },
+          {
+            name: 'Alex',
+            message: 'Have any ideas about what we should get Heidi for her birthday?'
           }
         ]
       }
     },
-    mounted: function () {
-      // let avatars = document.querySelectorAll('.v-avatar')
-      // avatars.forEach(function (element) {
-
-        // element.style.background = getRandomColor()
-        // console.log(element.textContent.trim())
-
-      // })
-
-      const myString = 'This is my string to be encoded/decoded'
-      const encoded = Buffer.from(myString).toString('hex')
-      console.log(encoded)
+    computed: {
+      filteredList () {
+        return this.items.filter(dialogue => {
+          return dialogue.name.toLowerCase().includes(this.search.trim().toLowerCase())
+        })
+      }
+    },
+    methods: {
+      clearInput () {
+        this.search = ''
+        this.$refs.searchInput.blur()
+      }
     }
   }
 </script>

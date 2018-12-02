@@ -9,3 +9,38 @@ h1, h2, h3, h4, h5, h6, p, strong, b, i
   font-family: 'SFUIDisplay'
 h1
   font-size: 47px
+body
+  background: #303030
+
+// Scroll
+$background-transparent: transparent
+$background-page-secondary: #000000
+$background-scroll: #7f7f7f
+.scroll::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track
+  -webkit-border-radius: 5px
+  border-radius: 5px
+  background-color: transparent
+.scroll::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb
+  -webkit-border-radius: 5px
+    border-radius: 5px
+  -webkit-box-shadow: $background-transparent
+  background-color: $background-transparent
+  transition: all .4s
+.scroll:hover::-webkit-scrollbar-thumb,
+body:hover::-webkit-scrollbar-thumb
+  -webkit-box-shadow: inset 0 0 6px transparentize($background-page-secondary, .7)
+  background-color: $background-scroll
+  transition: all .4s
+.scroll::-webkit-scrollbar,
+body::-webkit-scrollbar
+  width: 7px
+  height: 7px
+  transition: all .4s
+  background-color: transparent
+.scroll:hover::-webkit-scrollbar,
+body:hover::-webkit-scrollbar
+  transition: all .4s
+  background-color: transparent
+// !Scroll

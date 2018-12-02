@@ -15,6 +15,8 @@
                 type="text"
                 v-model.trim="login"
                 :rules="loginRules"
+                maxlength="30"
+                counter
               ></v-text-field>
               <v-text-field
                 prepend-icon="lock"
@@ -61,7 +63,8 @@ export default {
       passwordRegex: /\s/,
       valid: false,
       loginRules: [
-        v => !!v || 'Login is required'
+        v => !!v || 'Login is required',
+        v => v.length <= 30 || 'Max 30 characters'
       ],
       passwordRules: [
         v => !!v || 'Password is required',
