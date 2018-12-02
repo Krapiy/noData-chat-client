@@ -81,19 +81,17 @@
       }
     },
     mounted: function () {
-      function getRandomColor () {
-        var letters = '0123456789ABCDEF'
-        var color = '#'
-        for (var i = 0; i < 6; i++) {
-          color += letters[Math.floor(Math.random() * 16)]
-        }
-        return color
-      }
-      let avatars = document.querySelectorAll('.v-avatar')
-      avatars.forEach(function (element) {
-        element.style.background = getRandomColor()
-        console.log(element.textContent.trim())
-      })
+      // let avatars = document.querySelectorAll('.v-avatar')
+      // avatars.forEach(function (element) {
+
+        // element.style.background = getRandomColor()
+        // console.log(element.textContent.trim())
+
+      // })
+
+      const myString = 'This is my string to be encoded/decoded'
+      const encoded = Buffer.from(myString).toString('hex')
+      console.log(encoded)
     }
   }
 </script>
