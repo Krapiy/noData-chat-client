@@ -1,10 +1,10 @@
 <template>
-<div id="app">
-  <v-app id="inspire" dark>
-    <v-content>
-      <router-view></router-view>
-    </v-content>
-  </v-app>
+  <div id="app">
+    <v-app id="inspire" dark>
+      <v-content>
+        <router-view></router-view>
+      </v-content>
+    </v-app>
   </div>
 </template>
 <script>
