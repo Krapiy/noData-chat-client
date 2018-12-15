@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs3 class="grey grey darken-3">
+  <v-flex xs3 class="grey darken-3">
     <v-flex xs12> 
       <v-layout row>
         <add-user-modal></add-user-modal>
@@ -46,6 +46,7 @@
   import AddUserModal from '@/pages/chat/modals/AddUserModal'
   import NewGroupModal from '@/pages/chat/modals/NewGroupModal'
   import avatar from '@/mixins/avatar'
+  import { mapGetters } from 'vuex'
 
   export default {
     mixins: [avatar],
@@ -55,62 +56,15 @@
     },
     data () {
       return {
-        search: '',
-        items: [
-          {
-            name: 'Nikolay',
-            message: "I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
-          },
-          {
-            name: 'Ilya',
-            message: "Wish I could come, but I'm out of town this weekend."
-          },
-          {
-            name: 'Roman',
-            message: 'Do you have Paris recommendations? Have you ever been?'
-          },
-          {
-            name: 'Alex',
-            message: 'Have any ideas about what we should get Heidi for her birthday?'
-          },
-          {
-            name: 'Nikolay',
-            message: "I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
-          },
-          {
-            name: 'Ilya',
-            message: "Wish I could come, but I'm out of town this weekend."
-          },
-          {
-            name: 'Roman',
-            message: 'Do you have Paris recommendations? Have you ever been?'
-          },
-          {
-            name: 'Alex',
-            message: 'Have any ideas about what we should get Heidi for her birthday?'
-          },
-          {
-            name: 'Nikolay',
-            message: "I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
-          },
-          {
-            name: 'Ilya',
-            message: "Wish I could come, but I'm out of town this weekend."
-          },
-          {
-            name: 'Roman',
-            message: 'Do you have Paris recommendations? Have you ever been?'
-          },
-          {
-            name: 'Alex',
-            message: 'Have any ideas about what we should get Heidi for her birthday?'
-          }
-        ]
+        search: ''
       }
     },
     computed: {
+      ...mapGetters([
+        'usersList'
+      ]),
       filteredList () {
-        return this.items.filter(dialogue => {
+        return this.usersList.filter(dialogue => {
           return dialogue.name.toLowerCase().includes(this.search.trim().toLowerCase())
         })
       }
